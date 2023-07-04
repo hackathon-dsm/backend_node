@@ -16,7 +16,7 @@ export class Way {
     @Column({ name: 'user_id' })
     user_id: number;
 
-    @Column({ name: 'taxi_id' })
+    @Column({ name: 'taxi_id', nullable: false })
     taxt_id: number;
 
     @CreateDateColumn({ type: 'timestamp' })
