@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WayController } from './way.controller';
-import { WayService } from './way.service';
+import { WayController } from '../way.controller';
+import { WayService } from '../way.service';
 
 describe('WayController', () => {
   let controller: WayController;
