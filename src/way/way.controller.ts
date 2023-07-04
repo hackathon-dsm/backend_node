@@ -1,7 +1,20 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { WayService } from './way.service';
+import { AuthGuard } from '@nestjs/passport';
+import { WayDTO } from './dto/way.dto';
+import { Request } from 'express';
+import { User } from 'src/entities/user.entity';
 
 @Controller('way')
 export class WayController {
   constructor(private readonly wayService: WayService) {}
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post()
+  public async setWay(
+    @Body() wayDto: WayDTO,
+    @Req() req: Request
+  ) {
+    return await this.wayService.setWay(wayDto, req.user as User);
+  }
 }
