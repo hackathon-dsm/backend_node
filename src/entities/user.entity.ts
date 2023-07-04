@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Way } from "./way.entityt";
+import { Way } from "./way.entity";
 import { Taxi } from "./taxi.entity";
 import { Visitor } from "./visitor.entity";
 

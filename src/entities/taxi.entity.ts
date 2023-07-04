@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Way } from "./way.entityt";
+import { Way } from "./way.entity";
 import { User } from "./user.entity";
 
 @Entity('taxi')
