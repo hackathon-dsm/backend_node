@@ -1,18 +1,20 @@
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Way } from "./way.entity";
 import { Taxi } from "./taxi.entity";
-import { Visitor } from "./visitor.entity";
 
 @Entity('user')
 export class User {
     @PrimaryGeneratedColumn()
     user_id: number;
 
-    @Column({ unique: true })
+    @Column({ length: 30, unique: true })
     email: string;
 
-    @Column()
+    @Column({ length: 5 })
     name: string;
+
+    @Column({ length: 100 })
+    caution: string;
 
     @Column()
     password: string;
@@ -23,12 +25,9 @@ export class User {
     @UpdateDateColumn({ type: 'timestamp' })
     updated_at: Date;
 
-    @OneToMany(() => Way, (way) => way.user)
-    way: Way[];
-
     @OneToOne(() =>  Taxi, (taxi) => taxi.user)
     taxi: Taxi[];
 
-    @OneToOne(() =>  Visitor, (visitor) => visitor.user)
-    visitor: Visitor[];
+    @OneToMany(() => Way, (way) => way.taxi)
+    way: Way[];
 }

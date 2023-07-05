@@ -4,12 +4,30 @@ import { User } from "./user.entity";
 
 @Entity('taxi')
 export class Taxi {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     taxi_id: number;
 
-    @OneToMany(() => Way, (way) => way.user)
-    way: Way[];
+    @Column({ length: 30, unique: true })
+    email: string;
 
+    @Column({ length: 5 })
+    name: string;
+
+    @Column({ length: 11, unique: true })
+    phone: string;
+
+    @Column()
+    password: string;
+
+    @CreateDateColumn({ type: 'timestamp' })
+    created_at: Date;
+
+    @UpdateDateColumn({ type: 'timestamp' })
+    updated_at: Date;
+
+    @OneToMany(() => Way, (way) => way.taxi)
+    way: Way[];
+    
     @OneToOne(() => User, (user) => user.taxi, { nullable: false })
     @JoinColumn({ name: 'taxi_id' })
     user: User;

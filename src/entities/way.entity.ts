@@ -13,11 +13,11 @@ export class Way {
     @Column()
     destination: string;
 
-    @Column({ name: 'user_id' })
-    user_id: number;
+    @Column({ name: 'visitor_id' })
+    visitor_id: number;
 
     @Column({ name: 'taxi_id', nullable: false })
-    taxt_id: number;
+    taxi_id: number;
 
     @CreateDateColumn({ type: 'timestamp' })
     created_at: Date;
@@ -26,7 +26,7 @@ export class Way {
     updated_at: Date;
 
     @ManyToOne(() => User, (user) => user.way, { nullable: false })
-    @JoinColumn({ name: 'user_id' })
+    @JoinColumn({ name: 'visitor_id' })
     user: User;
 
     @ManyToOne(() => Taxi, (taxi) => taxi.way, { nullable: false })
