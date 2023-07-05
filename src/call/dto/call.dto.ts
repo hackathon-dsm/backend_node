@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 
-export class WayDTO {
+export class CallDTO {
     @IsString()
     departure: string;
 

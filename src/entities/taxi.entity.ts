@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Way } from "./way.entity";
+import { Call } from "./call.entity";
 import { User } from "./user.entity";
 
 @Entity('taxi')
@@ -25,8 +25,8 @@ export class Taxi {
     @UpdateDateColumn({ type: 'timestamp' })
     updated_at: Date;
 
-    @OneToMany(() => Way, (way) => way.taxi)
-    way: Way[];
+    @OneToMany(() => Call, (call) => call.taxi)
+    call: Call[];
     
     @OneToOne(() => User, (user) => user.taxi, { nullable: false })
     @JoinColumn({ name: 'taxi_id' })

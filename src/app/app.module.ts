@@ -4,13 +4,13 @@ import { AppService } from './app.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'src/config/ormconfig';
-import { WayModule } from 'src/way/way.module';
+import { CallModule } from 'src/call/call.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(config),
     AuthModule,
-    WayModule
+    CallModule
   ],
   controllers: [AppController],
   providers: [AppService],

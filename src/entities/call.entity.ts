@@ -2,10 +2,10 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 import { User } from "./user.entity";
 import { Taxi } from "./taxi.entity";
 
-@Entity('way')
-export class Way {
+@Entity('call')
+export class Call {
     @PrimaryGeneratedColumn()
-    way_id: number;
+    call_id: number;
 
     @Column()
     departure: string;
@@ -25,11 +25,11 @@ export class Way {
     @UpdateDateColumn({ type: 'timestamp' })
     updated_at: Date;
 
-    @ManyToOne(() => User, (user) => user.way, { nullable: false })
+    @ManyToOne(() => User, (user) => user.call, { nullable: false })
     @JoinColumn({ name: 'visitor_id' })
     user: User;
 
-    @ManyToOne(() => Taxi, (taxi) => taxi.way)
+    @ManyToOne(() => Taxi, (taxi) => taxi.call)
     @JoinColumn({ name: 'taxi_id' })
     taxi: Taxi;
 }

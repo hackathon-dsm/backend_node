@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Way } from "./way.entity";
+import { Call } from "./call.entity";
 import { Taxi } from "./taxi.entity";
 
 @Entity('user')
@@ -28,6 +28,6 @@ export class User {
     @OneToOne(() =>  Taxi, (taxi) => taxi.user)
     taxi: Taxi[];
 
-    @OneToMany(() => Way, (way) => way.taxi)
-    way: Way[];
+    @OneToMany(() => Call, (call) => call.taxi)
+    call: Call[];
 }
