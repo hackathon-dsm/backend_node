@@ -23,4 +23,12 @@ export class WayService {
     public async getOneWay(way_id: number): Promise<Way> {
         return await this.wayRepository.getOneWay(way_id);
     }
+
+    public async getAllWay(): Promise<Way[]> {
+        return await this.wayRepository.getAllWay();
+    }
+
+    public async cacnelWay(way_id: number) {
+        return await this.wayRepository.cancelWay(way_id);
+    }
 }

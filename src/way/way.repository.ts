@@ -47,4 +47,30 @@ export class WayRepository {
             .where('way.way_id = :way_id', { way_id })
             .getRawOne();
     }
+
+    async getAllWay(): Promise<Way[]> {
+        return await this.wayRepository.createQueryBuilder('way')
+            .select('way.way_id')
+            .addSelect('way.departure')
+            .addSelect('way.destination')
+            .addSelect('way.visitor_id')
+            .addSelect('way.taxi_id')
+            .addSelect('user.name')
+            .addSelect('taxi.name')
+            .addSelect('taxi.phone')
+            .addSelect('way.created_at')
+            .addSelect('way.updated_at')
+            .innerJoin('way.user', 'user')
+            .leftJoin('way.taxi', 'taxi')
+            .where('way.taxi_id IS NULL')
+            .getRawMany();
+    }
+
+    async cancelWay(way_id:  number) {
+        return await this.wayRepository.createQueryBuilder('way')
+            .update(Way)
+            .set({ taxi_id: null })
+            .where('way_id = :way_id', { way_id })
+            .execute();
+    }
 }
