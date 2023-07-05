@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { WayService } from './way.service';
 import { AuthGuard } from '@nestjs/passport';
 import { WayDTO } from './dto/way.dto';
@@ -16,5 +16,12 @@ export class WayController {
     @Req() req: Request
   ) {
     return await this.wayService.setWay(wayDto, req.user as User);
+  }
+
+  @Get('/:way_id')
+  public async getOneWay(
+    @Param('way_id') way_id: number 
+  ) {
+    return await this.wayService.getOneWay(way_id);
   }
 }
