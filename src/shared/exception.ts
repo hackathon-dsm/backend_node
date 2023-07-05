@@ -35,8 +35,8 @@ export class HttpError extends Error {
   }
   
   export class NotFoundError extends HttpError {
-    constructor() {
-      super(404, `Not Found`);
+    constructor(message: string) {
+      super(404, message || `Not Found`);
     }
   }
   
