@@ -29,13 +29,13 @@ export class TaxiRepository {
 
     async getOneTaxiById(taxi_id: number): Promise<Taxi> {
         return await this.taxiRepository.createQueryBuilder('taxi')
-        .select('taxi.taxi_id')
-        .addSelect('taxi.name')
-        .addSelect('taxi.email')
-        .addSelect('taxi.phone')  
-        .addSelect('taxi.car_number')  
-        .addSelect('taxi.created_at')
-        .addSelect('taxi.updated_at')    
+        .select('taxi.taxi_id', 'taxi_id')
+        .addSelect('taxi.name', 'name')
+        .addSelect('taxi.email', 'email')
+        .addSelect('taxi.phone', 'phone')  
+        .addSelect('taxi.car_number', 'car_number')  
+        .addSelect('taxi.created_at', 'created_at')
+        .addSelect('taxi.updated_at', 'updated_at')    
         .where('taxi.taxi_id = :taxi_id', { taxi_id })
         .getRawOne();
     }
