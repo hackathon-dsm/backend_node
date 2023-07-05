@@ -22,26 +22,27 @@ export class CallRepository {
         return await this.callRepository.save(call);
     }
 
-    async acceptTaxi(call_id: number, user: User) {
+    async acceptTaxi(call_id: number, taxi_id: number) {
         return await this.callRepository.createQueryBuilder('call')
             .update(Call)
-            .set({ taxi_id: user.user_id })
+            .set({ taxi_id })
             .where('call_id = :call_id', { call_id })
             .execute();
     }
 
     async getOneCall(call_id: number): Promise<Call> {
         return await this.callRepository.createQueryBuilder('call')
-            .select('call.call_id')
-            .addSelect('call.departure')
-            .addSelect('call.destination')
-            .addSelect('call.visitor_id')
-            .addSelect('call.taxi_id')
-            .addSelect('user.name')
-            .addSelect('taxi.name')
-            .addSelect('taxi.phone')
-            .addSelect('call.created_at')
-            .addSelect('call.updated_at')
+            .select('call.call_id', 'call_id')
+            .addSelect('call.departure', 'departure')
+            .addSelect('call.destination', 'destination')
+            .addSelect('call.visitor_id', 'visitor_id')
+            .addSelect('call.taxi_id', 'taxi_id')
+            .addSelect('taxi.name', 'taxi_name')
+            .addSelect('taxi.phone', 'taxi_phone')
+            .addSelect('user.name', 'visitor_name')
+            .addSelect('user.caution', 'visitor_caution')
+            .addSelect('call.created_at', 'created_at')
+            .addSelect('call.updated_at', 'updated_at')
             .innerJoin('call.user', 'user')
             .leftJoin('call.taxi', 'taxi')
             .where('call.call_id = :call_id', { call_id })
@@ -50,16 +51,17 @@ export class CallRepository {
 
     async getAllCall(): Promise<Call[]> {
         return await this.callRepository.createQueryBuilder('call')
-            .select('call.call_id')
-            .addSelect('call.departure')
-            .addSelect('call.destination')
-            .addSelect('call.visitor_id')
-            .addSelect('call.taxi_id')
-            .addSelect('user.name')
-            .addSelect('taxi.name')
-            .addSelect('taxi.phone')
-            .addSelect('call.created_at')
-            .addSelect('call.updated_at')
+            .select('call.call_id', 'call_id')
+            .addSelect('call.departure', 'departure')
+            .addSelect('call.destination', 'destination')
+            .addSelect('call.visitor_id', 'visitor_id')
+            .addSelect('call.taxi_id', 'taxi_id')
+            .addSelect('taxi.name', 'taxi_name')
+            .addSelect('taxi.phone', 'taxi_phone')
+            .addSelect('user.name', 'visitor_name')
+            .addSelect('user.caution', 'visitor_caution')
+            .addSelect('call.created_at', 'created_at')
+            .addSelect('call.updated_at', 'updated_at')
             .innerJoin('call.user', 'user')
             .leftJoin('call.taxi', 'taxi')
             .where('call.taxi_id IS NULL')
@@ -76,19 +78,28 @@ export class CallRepository {
 
     async getMyCall(user_id: number): Promise<Call[]> {
         return await this.callRepository.createQueryBuilder('call')
-            .select('call.call_id')
-            .addSelect('call.departure')
-            .addSelect('call.destination')
-            .addSelect('call.visitor_id')
-            .addSelect('call.taxi_id')
-            .addSelect('user.name')
-            .addSelect('taxi.name')
-            .addSelect('taxi.phone')
-            .addSelect('call.created_at')
-            .addSelect('call.updated_at')
+            .select('call.call_id', 'call_id')
+            .addSelect('call.departure', 'departure')
+            .addSelect('call.destination', 'destination')
+            .addSelect('call.visitor_id', 'visitor_id')
+            .addSelect('call.taxi_id', 'taxi_id')
+            .addSelect('taxi.name', 'taxi_name')
+            .addSelect('taxi.phone', 'taxi_phone')
+            .addSelect('user.name', 'visitor_name')
+            .addSelect('user.caution', 'visitor_caution')
+            .addSelect('call.created_at', 'created_at')
+            .addSelect('call.updated_at', 'updated_at')
             .innerJoin('call.user', 'user')
             .leftJoin('call.taxi', 'taxi')
             .where('call.visitor_id = :user_id', { user_id })
             .getRawMany();
+    }
+
+    async deleteCall(call_id: number) {
+        return this.callRepository.createQueryBuilder('call')
+            .delete()
+            .from(Call)
+            .where('call_id = :call_id', { call_id })
+            .execute()
     }
 }
