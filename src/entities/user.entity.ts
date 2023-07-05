@@ -25,9 +25,6 @@ export class User {
     @UpdateDateColumn({ type: 'timestamp' })
     updated_at: Date;
 
-    @OneToOne(() =>  Taxi, (taxi) => taxi.user)
-    taxi: Taxi[];
-
     @OneToMany(() => Call, (call) => call.taxi)
     call: Call[];
 }

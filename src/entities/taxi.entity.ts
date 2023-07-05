@@ -30,8 +30,4 @@ export class Taxi {
 
     @OneToMany(() => Call, (call) => call.taxi)
     call: Call[];
-    
-    @OneToOne(() => User, (user) => user.taxi, { nullable: false })
-    @JoinColumn({ name: 'taxi_id' })
-    user: User;
 }
