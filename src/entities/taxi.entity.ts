@@ -16,6 +16,9 @@ export class Taxi {
     @Column({ length: 11, unique: true })
     phone: string;
 
+    @Column({ unique: true })
+    car_number: string;
+
     @Column()
     password: string;
 
