@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { UserRepository } from 'src/user/user.repository';
 import { TaxiRepository } from 'src/taxi/taxi.repository';
 import { Taxi } from 'src/entities/taxi.entity';
+import { JwtStrategy } from 'src/shared/jwt/jwt.strategy';
 
 @Module({
     imports: [
@@ -23,6 +24,6 @@ import { Taxi } from 'src/entities/taxi.entity';
         }),
     ],
     controllers: [AuthController],
-    providers: [AuthService, UserRepository, TaxiRepository]
+    providers: [AuthService, UserRepository, TaxiRepository, JwtStrategy]
 })
 export class AuthModule {}
