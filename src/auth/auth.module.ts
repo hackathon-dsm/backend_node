@@ -9,18 +9,20 @@ import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserRepository } from 'src/user/user.repository';
+import { TaxiRepository } from 'src/taxi/taxi.repository';
+import { Taxi } from 'src/entities/taxi.entity';
 
 @Module({
     imports: [
         UserModule,
         PassportModule,
-        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([User, Taxi]),
         JwtModule.register({
             secret: process.env.JWT_KEY,
             signOptions: { expiresIn: process.env.TOKEN_TIME }
         }),
     ],
     controllers: [AuthController],
-    providers: [AuthService, UserRepository]
+    providers: [AuthService, UserRepository, TaxiRepository]
 })
 export class AuthModule {}
