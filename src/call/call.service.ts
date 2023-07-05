@@ -28,7 +28,11 @@ export class CallService {
         return await this.callRepository.getAllCall();
     }
 
-    public async cacnelCall(call_id: number) {
+    public async cancelCall(call_id: number) {
         return await this.callRepository.cancelCall(call_id);
+    }
+
+    public async getMyCall(user: User): Promise<Call[]> {
+        return await this.callRepository.getMyCall(user.user_id);
     }
 }

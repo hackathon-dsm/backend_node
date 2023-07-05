@@ -73,4 +73,22 @@ export class CallRepository {
             .where('call_id = :call_id', { call_id })
             .execute();
     }
+
+    async getMyCall(user_id: number): Promise<Call[]> {
+        return await this.callRepository.createQueryBuilder('call')
+            .select('call.call_id')
+            .addSelect('call.departure')
+            .addSelect('call.destination')
+            .addSelect('call.visitor_id')
+            .addSelect('call.taxi_id')
+            .addSelect('user.name')
+            .addSelect('taxi.name')
+            .addSelect('taxi.phone')
+            .addSelect('call.created_at')
+            .addSelect('call.updated_at')
+            .innerJoin('call.user', 'user')
+            .leftJoin('call.taxi', 'taxi')
+            .where('call.visitor_id = :user_id', { user_id })
+            .getRawMany();
+    }
 }
