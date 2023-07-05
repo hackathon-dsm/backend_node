@@ -48,7 +48,7 @@ export class CallController {
     return await this.callService.getOneCall(call_id);
   }
 
-  @Patch('/:call_id/cancel')
+  @Patch('/cancel/:call_id')
   public async cancelCall(
     @Param('call_id') call_id: number
   ) {
