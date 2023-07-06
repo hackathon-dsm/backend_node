@@ -22,17 +22,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(payload: Payload) {
-        const user = await this.userRepository.findOne({
-            where: { user_id: payload.id }
-        });
-        const taxi = await this.taxiRepository.findOne({
-            where: { taxi_id: payload.id }
-        });
-
-        if(user) {
-            return user;
-        } else if (taxi) {
-            return taxi;
+        if(payload.kind == 'TAXI') {
+            const taxi = await this.taxiRepository.findOne({
+                where: { taxi_id: payload.id }
+            });
+            return taxi
+        } else if(payload.kind == 'USER') {
+            const user = await this.userRepository.findOne({
+                where: { user_id: payload.id }
+            });
+            return user
         } else {
             throw new UnAuthorizedError;
         }
