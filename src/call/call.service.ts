@@ -19,11 +19,17 @@ export class CallService {
     public async acceptTaxi(call_id: number, user: Taxi): Promise<Call> {
         await this.callRepository.acceptTaxi(call_id, user.taxi_id);
 
-        return await this.callRepository.getOneCall(call_id);
+        const call = await this.callRepository.getOneCall(call_id);
+        if(!call) throw new NotFoundError('Not Found Call');
+        
+        return call;
     }
 
     public async getOneCall(call_id: number): Promise<Call> {
-        return await this.callRepository.getOneCall(call_id);
+        const call = await this.callRepository.getOneCall(call_id);
+        
+        if(!call) throw new NotFoundError('Not Found Call');
+        return call;
     }
 
     public async getAllCall(): Promise<Call[]> {
