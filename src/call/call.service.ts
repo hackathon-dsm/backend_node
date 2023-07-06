@@ -27,7 +27,7 @@ export class CallService {
 
     public async getOneCall(call_id: number): Promise<Call> {
         const call = await this.callRepository.getOneCall(call_id);
-        
+
         if(!call) throw new NotFoundError('Not Found Call');
         return call;
     }
@@ -36,7 +36,12 @@ export class CallService {
         return await this.callRepository.getAllCall();
     }
 
-    public async cancelCall(call_id: number) {
+    public async cancelCall(call_id: number, taxi: Taxi) {
+        const call = await this.callRepository.getOneCall(call_id);
+
+        if(!call) throw new NotFoundError('Not Found Call');
+        else if(call.taxi_id !== taxi.taxi_id) throw new ForbiddenError();
+        
         return await this.callRepository.cancelCall(call_id);
     }
 

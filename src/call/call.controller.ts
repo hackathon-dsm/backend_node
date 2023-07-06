@@ -48,12 +48,13 @@ export class CallController {
     return await this.callService.getOneCall(call_id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Patch('/cancel/:call_id')
   public async cancelCall(
-    @Param('call_id') call_id: number
+    @Param('call_id') call_id: number,
+    @Req() req: Request
   ) {
-    await this.callService.cancelCall(call_id);
-
+    await this.callService.cancelCall(call_id, req.user as Taxi); 
     return { statusCode: 200, message: 'cancel Call Success' };
   }
 
